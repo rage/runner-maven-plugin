@@ -1,4 +1,4 @@
-package fi.helsinki.cs.tmc.runjavafx.maven.plugin;
+package fi.helsinki.cs.tmc.runner.maven.plugin;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +15,9 @@ import org.rauschig.jarchivelib.Archiver;
 import org.rauschig.jarchivelib.ArchiverFactory;
 
 public class MavenFinder {
-    
+
     private final Log log;
-    
+
     public MavenFinder(Log log) {
         this.log = log;
     }
@@ -39,7 +39,7 @@ public class MavenFinder {
         return Paths.get(mavenHome);
     }
 
-    private Path useBundledMaven() {
+    public Path useBundledMaven() {
         Path mavenHome = getConfigDirectory();
         Path extractedMavenLocation = mavenHome.resolve("apache-maven-3.5.4");
         if (Files.exists(extractedMavenLocation)) {
