@@ -27,7 +27,6 @@ abstract class BaseMojo extends AbstractMojo {
         Log logger = getLog();
 
         List<String> command = buildCommand(logger);
-
         try {
             executeCommand(command, logger);
         } catch (IOException | InterruptedException ex) {
@@ -61,7 +60,8 @@ abstract class BaseMojo extends AbstractMojo {
         logger.info("Running command: " + String.join(" ", command));
 
         ProcessBuilder processBuilder = new ProcessBuilder(command)
-                .directory(basedir);
+                .directory(basedir)
+                .inheritIO();
 
         Process process = processBuilder.start();
 

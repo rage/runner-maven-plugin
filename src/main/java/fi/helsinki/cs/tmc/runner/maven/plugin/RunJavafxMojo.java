@@ -16,20 +16,23 @@ public class RunJavafxMojo extends BaseMojo {
     @Parameter(property = "exec.executable", defaultValue = "java")
     private String executable;
 
-    @Override
     public void execute() throws MojoExecutionException {
         Log logger = getLog();
         List<String> command = super.buildCommand(logger);
 
+        int lastIndex = command.size() - 1;
+        String lastCommand = command.get(lastIndex);
+        command.remove(lastIndex);
+        command.add("\"-Djavafx.executable=" + executable + "\"");
+
         if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_11)) {
-            command.remove(command.size() - 1);
-            command.add("\"-Djavafx.executable=" + executable + "\"");
             command.add("javafx:run");
+        } else {
+            command.add(lastCommand);
         }
 
         try {
             super.executeCommand(command, logger);
-
         } catch (IOException | InterruptedException ex) {
             logger.error(ex.getMessage());
             throw new MojoExecutionException(ex.getMessage());

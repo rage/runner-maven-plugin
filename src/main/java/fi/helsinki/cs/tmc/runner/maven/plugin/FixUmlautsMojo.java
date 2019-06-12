@@ -18,7 +18,6 @@ public class FixUmlautsMojo extends BaseMojo {
     @Parameter(defaultValue = "${project.basedir}", readonly = true)
     private File basedir;
 
-    @Override
     public void execute() throws MojoExecutionException {
         Log logger = getLog();
         try {
